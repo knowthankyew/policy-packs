@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
@@ -39,7 +39,7 @@ jobs:
         run: npx --yes @cyclonedx/cdxgen -o bom.json
 
       - name: Attest Build Provenance (SLSA Keyless)
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: |
             bom.json
