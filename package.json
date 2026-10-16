@@ -1,0 +1,89 @@
+{
+  "name": "@knowthankyew/policy-packs",
+  "version": "1.0.0",
+  "description": "Centralized statutory and regulatory policy engine for knowthankyew client reality engines",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./subscriptions": {
+      "types": "./dist/subscriptions/index.d.ts",
+      "import": "./dist/subscriptions/index.js",
+      "default": "./dist/subscriptions/index.js"
+    },
+    "./tenancy": {
+      "types": "./dist/tenancy/index.d.ts",
+      "import": "./dist/tenancy/index.js",
+      "default": "./dist/tenancy/index.js"
+    },
+    "./healthcare": {
+      "types": "./dist/healthcare/index.d.ts",
+      "import": "./dist/healthcare/index.js",
+      "default": "./dist/healthcare/index.js"
+    },
+    "./wage": {
+      "types": "./dist/wage/index.d.ts",
+      "import": "./dist/wage/index.js",
+      "default": "./dist/wage/index.js"
+    },
+    "./warranties": {
+      "types": "./dist/warranties/index.d.ts",
+      "import": "./dist/warranties/index.js",
+      "default": "./dist/warranties/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "NOTICE.md",
+    "LICENSE",
+    "README.md",
+    "bom.json"
+  ],
+  "scripts": {
+    "build": "vite build && tsc --emitDeclarationOnly",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "audit:claims": "node scripts/audit-claims.mjs",
+    "audit:statutes": "node scripts/check-statutory-updates.mjs --mock",
+    "generate:sbom": "node scripts/generate-sbom.mjs"
+  },
+  "keywords": [
+    "knowthankyew",
+    "statutes",
+    "regulations",
+    "policy-packs",
+    "consumer-protection",
+    "rosca",
+    "negative-option",
+    "tenancy",
+    "charity-care",
+    "wage-and-hour",
+    "magnuson-moss",
+    "lemon-law",
+    "zero-egress"
+  ],
+  "author": "knowthankyew Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knowthankyew/policy-packs.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/safe-regex": "^1.1.6",
+    "safe-regex": "^2.1.1",
+    "typescript": "^5.5.4",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  }
+}

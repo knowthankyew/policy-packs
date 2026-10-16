@@ -1,0 +1,90 @@
+{
+  "packId": "eu-crd",
+  "name": "EU Consumer Rights Directive (2011/83/EU)",
+  "version": "1.0.0",
+  "jurisdiction": "EU",
+  "description": "Statutory rules covering EU CRD 2011/83/EU prohibitions on pre-ticked subscription boxes and requirements for transparent cancellation mechanisms.",
+  "rules": [
+    {
+      "id": "EU-AR-001",
+      "title": "Pre-Ticked Consent Box & Default Additional Payments / Add-Ons",
+      "category": "AUTO_RENEWAL",
+      "classification": "STATUTORY_VIOLATION",
+      "severity": "CRITICAL",
+      "statute": {
+        "code": "Directive 2011/83/EU, Article 22",
+        "title": "Prohibition of Default Options for Additional Payments",
+        "jurisdiction": "EU",
+        "plainExplanation": "EU law strictly prohibits traders from inferring consumer consent through pre-ticked checkboxes or default options for additional payments or add-on subscriptions beyond the main purchase."
+      },
+      "patterns": [
+        "(?:additional|add[- ]on|monthly)\\s+(?:subscription|charge|fee|payment)\\s+(?:(?:checkbox|box|option)\\s+is|is)\\s+(?:pre-?selected|checked\\s+by\\s+default)",
+        "unless\\s+you\\s+(?:uncheck|deselect)[^.\\n]{0,60}(?:subscription|monthly|recurring|enrolled)",
+        "(?:automatically\\s+included|added\\s+by\\s+default)[^.\\n]{0,60}(?:opt-out|uncheck\\s+to\\s+remove)"
+      ],
+      "explanation": "The terms or checkout flow indicate that an additional recurring charge, add-on subscription, or optional payment is pre-selected or checked by default beyond the primary transaction.",
+      "recommendation": "EU Directive 2011/83/EU Article 22 prohibits default options (such as pre-ticked boxes) for additional payments. Consent for extra charges must be express and opt-in; otherwise consumers are entitled to full reimbursement.",
+      "tracking": {
+        "agency": "European Commission / National Consumer Authorities",
+        "jurisdiction": "EU",
+        "statuteCode": "Directive 2011/83/EU, Art. 22",
+        "apiKeywords": ["Consumer Rights Directive", "Directive 2011/83/EU", "Pre-ticked", "Default Option"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    },
+    {
+      "id": "EU-AR-002",
+      "title": "Statutory 14-Day EU Withdrawal Right Waiver",
+      "category": "AUTO_RENEWAL",
+      "classification": "RIGHTS_WAIVER",
+      "severity": "WARNING",
+      "statute": {
+        "code": "Directive 2011/83/EU, Articles 9, 16(m) & 25",
+        "title": "14-Day Right of Withdrawal & Article 16 Digital Exemptions",
+        "jurisdiction": "EU",
+        "plainExplanation": "EU consumers possess a statutory 14-day right of withdrawal from distance contracts. While Article 16(m) permits loss of withdrawal rights for digital content upon prior express consent and acknowledgment of loss of withdrawal, blanket waivers outside this statutory exception are void under Article 25."
+      },
+      "patterns": [
+        "(?:waiv(?:e|es|ing)|forfeit(?:s|ing)?)\\s+(?:right\\s+of\\s+withdrawal|your\\s+right\\s+of\\s+withdrawal|withdrawal\\s+right|your\\s+withdrawal\\s+right|cooling-off\\s+period)",
+        "(?:by\\s+proceeding|by\\s+subscribing|by\\s+purchasing)[^.\\n]{0,60}(?:you\\s+waive|waiving|lose)\\s+(?:right|your\\s+right|statutory\\s+right|your\\s+statutory\\s+right)\\s+of\\s+withdrawal",
+        "no\\s+statutory\\s+right\\s+of\\s+withdrawal[^.\\n]{0,60}(?:under\\s+any\\s+circumstances|is\\s+recognized)"
+      ],
+      "explanation": "The clause states that you waive or forfeit your 14-day statutory right of withdrawal / cooling-off period. Under Directive 2011/83/EU Art. 16(m), withdrawal rights may only be extinguished for digital content if the consumer gave prior express consent and expressly acknowledged forfeiture of the right; blanket or non-exempt waivers are null and void under Art. 25.",
+      "recommendation": "If you did not provide prior express consent and explicit acknowledgment for immediate digital performance, the trader cannot extinguish your statutory 14-day withdrawal right under Directive 2011/83/EU Article 25.",
+      "tracking": {
+        "agency": "European Commission / National Consumer Authorities",
+        "jurisdiction": "EU",
+        "statuteCode": "Directive 2011/83/EU, Art. 9, 25",
+        "apiKeywords": ["Right of Withdrawal", "Cooling-Off", "Directive 2011/83/EU"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    },
+    {
+      "id": "EU-SURV-001",
+      "title": "Bundled Subscription & Tracking/Profiling Consent",
+      "category": "SURVEILLANCE",
+      "classification": "SURVEILLANCE_NOTICE",
+      "severity": "WARNING",
+      "statute": {
+        "code": "EU GDPR Regulation (EU) 2016/679, Articles 7 & 22",
+        "title": "Unbundled Freely-Given Consent Mandate",
+        "jurisdiction": "EU",
+        "plainExplanation": "Consent to behavioral advertising or profiling cannot be bundled into acceptance of subscription terms as a condition of service."
+      },
+      "patterns": [
+        "by\\s+(?:subscribing|purchasing|signing\\s+up)[^.\\n]{0,60}(?:agree|consent)\\s+to\\s+(?:our\\s+cookie\\s+policy|cross-site\\s+tracking)",
+        "agreeing\\s+to\\s+these\\s+terms\\s+includes\\s+consent\\s+to\\s+(?:profiling|targeted\\s+advertising)",
+        "(?:we\\s+may\\s+use|use)\\s+your\\s+data\\s+for\\s+(?:personalisation|behavioral\\s+profiling)\\s+as\\s+part\\s+of\\s+this\\s+subscription"
+      ],
+      "explanation": "The subscription contract conditions service access on blanket acceptance of behavioral tracking, advertising cookies, or automated profiling.",
+      "recommendation": "GDPR Article 7 requires data processing consent to be freely given, specific, and unbundled from subscription contract performance.",
+      "tracking": {
+        "agency": "European Data Protection Board (EDPB)",
+        "jurisdiction": "EU",
+        "statuteCode": "Regulation (EU) 2016/679, Art. 7",
+        "apiKeywords": ["GDPR", "Consent Bundling", "Profiling", "Article 7"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    }
+  ]
+}

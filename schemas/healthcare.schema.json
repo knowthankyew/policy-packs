@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HealthcarePolicySchema",
+  "description": "Schema for IRC § 501(r) hospital financial assistance, ECA notice, and FPL policy packs",
+  "type": "object",
+  "required": [
+    "jurisdiction",
+    "metadata",
+    "mandates"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "jurisdiction": {
+      "type": "object",
+      "required": ["code", "name", "type"],
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["federal", "state", "municipal"] }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["version", "effectiveDate", "lastAudited", "statuteRef", "officialSourceUrl"],
+      "properties": {
+        "version": { "type": "string" },
+        "effectiveDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "lastAudited": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "statuteRef": { "type": "string" },
+        "officialSourceUrl": { "type": "string", "format": "uri" }
+      }
+    },
+    "mandates": {
+      "type": "object",
+      "required": [
+        "fullCharityFplThresholdPercent",
+        "partialDiscountFplThresholdPercent",
+        "minimumEcaNoticeDays",
+        "assetExemptionRequired",
+        "statutoryProtections"
+      ],
+      "properties": {
+        "fullCharityFplThresholdPercent": { "type": "number" },
+        "partialDiscountFplThresholdPercent": { "type": "number" },
+        "minimumEcaNoticeDays": { "type": "number" },
+        "assetExemptionRequired": { "type": "boolean" },
+        "statutoryProtections": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

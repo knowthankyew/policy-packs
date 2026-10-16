@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WarrantiesPolicySchema",
+  "description": "Schema for Magnuson-Moss and state lemon law warranty packs",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["federalRules"],
+      "properties": {
+        "federalRules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "pattern",
+              "title",
+              "severity",
+              "statute",
+              "lawName",
+              "explanation",
+              "enforceability",
+              "consumerAdvice"
+            ],
+            "properties": {
+              "id": { "type": "string" },
+              "pattern": { "type": "string" },
+              "title": { "type": "string" },
+              "severity": { "type": "string", "enum": ["illegal", "deceptive", "caution"] },
+              "statute": { "type": "string" },
+              "lawName": { "type": "string" },
+              "explanation": { "type": "string" },
+              "enforceability": { "type": "string" },
+              "consumerAdvice": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["jurisdiction", "metadata", "lemonLaw"],
+      "properties": {
+        "jurisdiction": {
+          "type": "object",
+          "required": ["code", "name", "type"],
+          "properties": {
+            "code": { "type": "string" },
+            "name": { "type": "string" },
+            "type": { "type": "string" }
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "required": ["statuteRef"],
+          "properties": {
+            "version": { "type": "string" },
+            "effectiveDate": { "type": "string" },
+            "lastAudited": { "type": "string" },
+            "statuteRef": { "type": "string" },
+            "officialSourceUrl": { "type": "string" }
+          }
+        },
+        "lemonLaw": {
+          "type": "object",
+          "required": [
+            "repairAttemptsThreshold",
+            "daysOutOfServiceThreshold",
+            "safetyDefectAttemptsThreshold",
+            "coveragePeriod",
+            "impliedWarrantyWaivable",
+            "remedies",
+            "attorneyFeesShift",
+            "specialRules"
+          ],
+          "properties": {
+            "repairAttemptsThreshold": { "type": "number" },
+            "daysOutOfServiceThreshold": { "type": "number" },
+            "safetyDefectAttemptsThreshold": { "type": "number" },
+            "coveragePeriod": { "type": "string" },
+            "impliedWarrantyWaivable": { "type": "boolean" },
+            "remedies": { "type": "array", "items": { "type": "string" } },
+            "attorneyFeesShift": { "type": "boolean" },
+            "specialRules": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  ]
+}

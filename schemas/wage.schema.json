@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WagePolicySchema",
+  "description": "Schema for FLSA and state wage and hour standards, overtime, and statutory penalty packs",
+  "type": "object",
+  "required": [
+    "jurisdiction",
+    "metadata",
+    "standards"
+  ],
+  "properties": {
+    "jurisdiction": {
+      "type": "object",
+      "required": ["code", "name", "type"],
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["federal", "state", "municipal"] }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["version", "statuteRef"],
+      "properties": {
+        "version": { "type": "string" },
+        "effectiveDate": { "type": "string" },
+        "lastAudited": { "type": "string" },
+        "statuteRef": { "type": "string" },
+        "officialSourceUrl": { "type": "string" }
+      }
+    },
+    "standards": {
+      "type": "object",
+      "required": [
+        "minimumWageRate",
+        "weeklyOvertimeThreshold",
+        "hasStateDisabilityTax",
+        "specialRules"
+      ],
+      "properties": {
+        "minimumWageRate": { "type": "number" },
+        "exemptionSalaryThreshold": { "type": "number" },
+        "dailyOvertimeThreshold": { "type": "number" },
+        "doubleTimeThreshold": { "type": "number" },
+        "weeklyOvertimeThreshold": { "type": "number" },
+        "hasStateDisabilityTax": { "type": "boolean" },
+        "stateTaxName": { "type": "string" },
+        "waitingTimePenaltyDays": { "type": "number" },
+        "statutoryDamagesMultiplier": { "type": "string" },
+        "specialRules": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

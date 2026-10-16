@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  validate:
+    name: Build, Audit, Test & Attest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Audit Dependencies (Fail-Closed)
+        run: npm audit --audit-level=high
+
+      - name: TypeScript Type Check
+        run: npx tsc --noEmit
+
+      - name: Audit Claims, Schemas & Regulatory Dates
+        run: npm run audit:claims
+
+      - name: Verify Statutory Monitor (--mock)
+        run: npm run audit:statutes
+
+      - name: Build Policy Packs (ESM + Typings)
+        run: npm run build
+
+      - name: Verify Zero-Egress Invariant (grep dist/)
+        run: |
+          echo "Scanning all compiled policy packs for remote network primitives..."
+          if grep -rEn "fetch\(|WebSocket|sendBeacon|XMLHttpRequest|EventSource|importScripts" dist/ --include='*.js'; then
+            echo "ERROR: Network egress primitive detected in compiled policy pack distribution!"
+            exit 1
+          fi
+          echo "PASS: Absolute zero-egress verified across all compiled policy pack distributions."
+
+      - name: Run Unit & ReDoS Test Suite
+        run: npm test
+
+      - name: Generate CycloneDX SBOM
+        run: npx --yes @cyclonedx/cdxgen -o bom.json
+
+      - name: Attest Build Provenance (SLSA Keyless)
+        uses: actions/attest-build-provenance@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          subject-path: |
+            bom.json
+            dist/**
+
+      - name: Upload SBOM & Dist Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: policy-packs-build-artifacts
+          path: |
+            bom.json
+            dist/

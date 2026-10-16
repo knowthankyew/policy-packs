@@ -1,0 +1,161 @@
+{
+  "packId": "state-arl",
+  "name": "State Consumer Protection & ARL Policy Pack",
+  "version": "1.0.0",
+  "jurisdiction": "US State",
+  "description": "State statutory rules covering automatic renewals (California AB 2863, New York GBL § 527-a) and state privacy protections (CCPA/CPRA, Illinois BIPA).",
+  "rules": [
+    {
+      "id": "AR-003",
+      "title": "Post-Trial Immediate Conversion Charge",
+      "category": "AUTO_RENEWAL",
+      "classification": "STATUTORY_VIOLATION",
+      "severity": "WARNING",
+      "statute": {
+        "code": "Cal. Bus. & Prof. Code § 17602(a)(2) / N.Y. GBL § 527-a",
+        "title": "Free Trial Disclosure Mandate",
+        "jurisdiction": "California & New York",
+        "plainExplanation": "Companies cannot convert free or discounted trials into full-rate paid subscriptions without upfront, conspicuous disclosure of the price after trial."
+      },
+      "patterns": [
+        "(?:free|introductory|discounted)\\s+trial\\s+(?:will|shall)\\s+(?:automatically\\s+convert|be\\s+charged|transition)",
+        "upon\\s+the\\s+expiration\\s+of\\s+(?:the\\s+free\\s+trial|your\\s+trial),\\s+(?:you\\s+will\\s+be\\s+charged|your\\s+account\\s+will\\s+be\\s+billed)",
+        "after\\s+(?:your\\s+trial|the\\s+trial\\s+period),\\s+(?:the\\s+regular|standard)\\s+(?:rate|price|fee)\\s+will\\s+apply"
+      ],
+      "explanation": "A promotional or free trial immediately converts into a recurring subscription billing at full price.",
+      "recommendation": "Set a calendar alert or utilize a single-use virtual card before starting the promotional trial.",
+      "tracking": {
+        "jurisdiction": "California / New York",
+        "statuteCode": "Cal. Bus. & Prof. Code § 17602(a)(2)",
+        "apiKeywords": ["Automatic Renewal", "Free Trial Conversion", "AB 2863"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    },
+    {
+      "id": "SURV-001",
+      "title": "Third-Party Behavioral Data Sale & Advertising Sharing",
+      "category": "SURVEILLANCE",
+      "classification": "SURVEILLANCE_NOTICE",
+      "severity": "WARNING",
+      "statute": {
+        "code": "Cal. Civ. Code § 1798.120 (CCPA/CPRA) / Multi-State Privacy",
+        "title": "Consumer Opt-Out of Data Sale & Cross-Context Sharing",
+        "jurisdiction": "California & Multi-State",
+        "plainExplanation": "Consumers possess an unconditional statutory right to direct businesses to cease selling or sharing their personal information for cross-context behavioral advertising."
+      },
+      "patterns": [
+        "share\\s+(?:your\\s+personal\\s+information|your\\s+data)[^.\\n]{0,80}(?:advertisers|data\\s+brokers|marketing\\s+partners)[^.\\n]{0,60}(?:targeted|cross-context)",
+        "we\\s+may\\s+(?:sell|rent|trade)[^.\\n]{0,40}(?:your\\s+information|user\\s+data|personal\\s+data)",
+        "third\\s+parties\\s+may\\s+collect\\s+information\\s+about\\s+your\\s+online\\s+activities"
+      ],
+      "explanation": "The policy states that your personal data and online habits may be sold, licensed, or shared with commercial data brokers or advertisers.",
+      "recommendation": "Look for a \"Do Not Sell or Share My Personal Information\" link in the page footer and exercise your statutory opt-out.",
+      "tracking": {
+        "jurisdiction": "California",
+        "statuteCode": "Cal. Civ. Code § 1798.120",
+        "apiKeywords": ["CCPA", "CPRA", "Cross-Context Behavioral Advertising", "Data Sale"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    },
+    {
+      "id": "SURV-002",
+      "title": "Continuous Background Location or Biometric Collection",
+      "category": "SURVEILLANCE",
+      "classification": "SURVEILLANCE_NOTICE",
+      "severity": "INFO",
+      "statute": {
+        "code": "740 ILCS 14/ (BIPA) / Cal. Civ. Code § 1798.140",
+        "title": "Biometric Information Privacy & Precise Geolocation",
+        "jurisdiction": "Illinois & California",
+        "plainExplanation": "Continuous collection of precise GPS location or biometric identifiers requires explicit written authorization and publicly available retention schedules."
+      },
+      "patterns": [
+        "collects?\\s+precise\\s+(?:geolocation|location\\s+data)[^.\\n]{0,60}(?:closed|background)",
+        "(?:voice\\s+recordings|facial\\s+geometry|biometric\\s+identifiers)[^.\\n]{0,60}(?:stored|analyzed)"
+      ],
+      "explanation": "The platform retains rights to track your precise physical coordinates or analyze biometric identifiers continuously.",
+      "recommendation": "Deny persistent location permissions in your browser unless strictly needed for local services.",
+      "tracking": {
+        "jurisdiction": "Illinois / California",
+        "statuteCode": "740 ILCS 14/",
+        "apiKeywords": ["BIPA", "Biometric Privacy", "Geolocation"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    },
+    {
+      "id": "US-CO-001",
+      "title": "Colorado Advance Renewal Notice Disclosure",
+      "category": "AUTO_RENEWAL",
+      "classification": "STATUTORY_VIOLATION",
+      "severity": "WARNING",
+      "statute": {
+        "code": "Colo. Rev. Stat. § 6-1-732",
+        "title": "Colorado Automatic Renewal Notice Mandate",
+        "jurisdiction": "Colorado",
+        "plainExplanation": "Colorado law mandates advance notice before continuous service renewals or trial conversions, including clear cancellation details."
+      },
+      "patterns": [
+        "(?:automatic(?:ally)?\\s+renew(?:al|s)?|continuous\\s+service)[^.\\n]{0,60}(?:colorado|c\\.r\\.s\\.)[^.\\n]{0,60}(?:no\\s+notice|without\\s+advance\\s+notice)",
+        "colorado\\s+(?:residents|consumers|subscribers)[^.\\n]{0,60}(?:waive|no)\\s+(?:advance\\s+notice|renewal\\s+notice)"
+      ],
+      "explanation": "The terms fail to provide the Colorado-mandated advance notification before continuous subscription renewal or free trial conversion.",
+      "recommendation": "Colorado law guarantees advance notice before automatic renewal. Verify that clear cancellation instructions are provided before renewal fees post.",
+      "tracking": {
+        "jurisdiction": "Colorado",
+        "statuteCode": "Colo. Rev. Stat. § 6-1-732",
+        "apiKeywords": ["Colorado ARL", "Automatic Renewal", "Advance Notice"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    },
+    {
+      "id": "US-IL-001",
+      "title": "Illinois Symmetrical Online Cancellation Mandate",
+      "category": "AUTO_RENEWAL",
+      "classification": "STATUTORY_VIOLATION",
+      "severity": "WARNING",
+      "statute": {
+        "code": "815 ILCS 601 (Illinois ACRA)",
+        "title": "Illinois Automatic Contract Renewal Act",
+        "jurisdiction": "Illinois",
+        "plainExplanation": "Illinois ACRA requires clear disclosure of auto-renewal terms and mandates symmetrical online cancellation for online subscriptions."
+      },
+      "patterns": [
+        "(?:automatic(?:ally)?\\s+renew(?:al|s)?)[^.\\n]{0,80}(?:illinois|815\\s+ilcs)[^.\\n]{0,60}(?:mail|written\\s+notice\\s+only|call\\s+to\\s+cancel)",
+        "(?:illinois\\s+residents|illinois\\s+subscribers)[^.\\n]{0,60}(?:must\\s+call|written\\s+cancellation\\s+required)"
+      ],
+      "explanation": "The terms impose asymmetric obstacles on Illinois consumers by requiring phone calls or postal mail to cancel an online subscription.",
+      "recommendation": "Under 815 ILCS 601, consumers who enroll online have a statutory right to cancel online without obstructive call-in hurdles.",
+      "tracking": {
+        "jurisdiction": "Illinois",
+        "statuteCode": "815 ILCS 601",
+        "apiKeywords": ["Illinois ACRA", "Automatic Renewal", "Online Cancellation"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    },
+    {
+      "id": "US-OR-001",
+      "title": "Oregon Automatic Renewal Terms & Acknowledgment Disclosure",
+      "category": "AUTO_RENEWAL",
+      "classification": "STATUTORY_VIOLATION",
+      "severity": "WARNING",
+      "statute": {
+        "code": "Or. Rev. Stat. § 646A.295",
+        "title": "Oregon Automatic Renewal Law",
+        "jurisdiction": "Oregon",
+        "plainExplanation": "Oregon law requires businesses to clearly and conspicuously disclose auto-renewal offer terms, obtain affirmative consent, and provide an acknowledgment detailing straightforward cancellation procedures."
+      },
+      "patterns": [
+        "(?:automatic(?:ally)?\\s+renew(?:al|s)?)[^.\\n]{0,80}(?:oregon|ors\\s+646a)[^.\\n]{0,60}(?:no\\s+acknowledg?ment|waiv(?:e|es|ing)\\s+cancellation\\s+procedure)",
+        "oregon\\s+(?:residents|consumers|subscribers)[^.\\n]{0,60}(?:no\\s+cancellation\\s+details|no\\s+written\\s+acknowledg?ment)"
+      ],
+      "explanation": "The agreement disclaims mandatory offer term disclosures, written acknowledgment, or the straightforward cancellation mechanism required for Oregon consumers under ORS § 646A.295.",
+      "recommendation": "Oregon ORS § 646A.295 requires clear pre-sale disclosure of terms, written acknowledgment with clear cancellation steps, and easy cancellation mechanisms.",
+      "tracking": {
+        "jurisdiction": "Oregon",
+        "statuteCode": "Or. Rev. Stat. § 646A.295",
+        "apiKeywords": ["Oregon ARL", "ORS 646A.295", "Cancellation Procedure", "Automatic Renewal"],
+        "lastVerifiedDate": "2026-09-01"
+      }
+    }
+  ]
+}

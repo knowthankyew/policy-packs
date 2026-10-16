@@ -1,0 +1,51 @@
+name: Publish
+
+on:
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  publish:
+    name: Build, Attest & Publish to npm (Provenance-Backed)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Verify Quality Gates
+        run: |
+          npm audit --audit-level=high
+          npm run audit:claims
+          npm run build
+          npm test
+
+      - name: Generate CycloneDX SBOM
+        run: npx --yes @cyclonedx/cdxgen -o bom.json
+
+      - name: Attest Build Provenance (SLSA Keyless)
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            bom.json
+            dist/**
+
+      - name: Publish Package to npm with Provenance
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
