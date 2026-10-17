@@ -1,0 +1,89 @@
+# CodeRabbit Configuration for PolicyPacks
+# Scope: Centralized Statutory & Regulatory Policy Engine, Zero-Egress Air-Gap, Invariant Schemas & Provenance
+
+language: "en-US"
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  sequence_diagrams: true
+  auto_review:
+    enabled: true
+    drafts: false
+
+  path_filters:
+    - "!node_modules/**"
+    - "!dist/**"
+    - "!bom.json"
+    - "!*.log"
+    - "!statutory-update-report.md"
+
+  path_instructions:
+    - path: "**/*"
+      instructions: |
+        You are performing an architectural, security, legal accuracy, and zero-egress audit for `@knowthankyew/policy-packs`.
+        This library is the centralized statutory and regulatory policy engine powering the KnowThankYew client reality engines portfolio.
+
+        Enforce these core architectural invariants:
+
+        1. ZERO RUNTIME EGRESS & COMPILE-TIME AIR-GAP INVARIANT (CRITICAL):
+           - In `src/**`, strictly prohibit dynamic runtime network requests (`fetch`, `XMLHttpRequest`, `WebSocket`, `navigator.sendBeacon`, dynamic network imports).
+           - All statutory rules, schemas, and jurisdiction benchmarks must evaluate 100% locally in-memory within client browser runtimes.
+           - Built bundles in `dist/` must contain zero external HTTP/HTTPS network calls.
+
+        2. STATUTORY GROUNDING & LEGAL DEFICIT PREVENTION:
+           - In `src/subscriptions/**`, `src/tenancy/**`, `src/healthcare/**`, `src/wage/**`, and `src/warranties/**`:
+             - Every statutory rule must specify: `id`, `name`, `statuteRef`, `jurisdiction`, `effectiveDate`, `lastAudited`, `description`, `officialSourceUrl`.
+             - Subscriptions: Grounded against ROSCA (15 U.S.C. § 8403), FTC Negative Option Rule (16 CFR Part 425), State ARLs (CA EDC § 17602, NY GBL § 527), UK DMCC 2024, EU CRD 2011/83.
+             - Tenancy: Grounded against State Tenant Protection Acts, Security Deposit limits, and habitability codes (CA Civ. Code §§ 1950.5/1941, NY RPL § 238-a, IL 765 ILCS 710, TX Prop. Code § 92).
+             - Healthcare: Grounded against IRC § 501(r) Financial Assistance Policies, HHS/CMS Hospital Price Transparency medians, and official Federal Poverty Level (FPL) thresholds.
+             - Wage & Hour: Grounded against FLSA (29 U.S.C. §§ 206/207) and State Wage Theft Prevention Acts.
+             - Warranties: Grounded against Magnuson-Moss Act (15 U.S.C. § 2301), UCC § 2-314, and State Lemon Laws.
+
+        3. REDOS SAFETY & REGEX HARDENING:
+           - Regex patterns must be checked for exponential backtracking (ReDoS).
+           - High repetition or nested quantifiers must adhere to safe-regex static analysis and fail-safe evaluation timeouts.
+
+        4. HUMAN-IN-THE-LOOP REGULATORY CRAWLER:
+           - In `scripts/check-statutory-updates.mjs` and `.github/workflows/legal-statute-monitor.yml`:
+             - Automated crawlers query Federal Register, EUR-Lex, UK Legislation, and State feeds.
+             - Crawlers must NEVER auto-merge into production.
+             - Crawlers must generate standardized markdown diff reports and open draft PRs labeled `needs-attorney-review` and `statutory-review`.
+
+        5. SUPPLY CHAIN & CLAIMS LINTER:
+           - In `scripts/audit-claims.mjs`:
+             - Strictly prohibit unprovable marketing adjectives ('bulletproof', 'conclusive', 'definitive', '100% immune', 'foolproof').
+             - Enforce test coverage for every statutory rule and condition.
+             - Verify CycloneDX SBOM (`bom.json`) and SLSA build provenance attestation.
+
+    - path: "src/subscriptions/**"
+      instructions: "Audit subscription auto-renewal rules, cancellation patterns, and notice periods for legal precision and ReDoS safety."
+
+    - path: "src/tenancy/**"
+      instructions: "Audit residential tenancy statutes, deposit caps, return deadlines, and habitability standards."
+
+    - path: "src/healthcare/**"
+      instructions: "Audit hospital price benchmarks, CMS medians, and IRC 501(r) FPL scales."
+
+    - path: "src/wage/**"
+      instructions: "Audit FLSA overtime calculations, minimum wage schedules, and state meal/rest break penalty formulas."
+
+    - path: "src/warranties/**"
+      instructions: "Audit Magnuson-Moss disclosure thresholds, UCC implied warranty disclaimers, and state lemon law repair attempts."
+
+    - path: "scripts/**"
+      instructions: "Audit crawler robustness, rate limiting, error handling, and draft PR generation."
+
+knowledge_base:
+  opt_out: false
+  learnings:
+    scope: "auto"
+  linked_repositories:
+    - repository: "knowthankyew/knowthankyew-extension"
+      instructions: "Flagship extension consuming @knowthankyew/policy-packs/subscriptions."
+    - repository: "knowthankyew/privacy-telemetry"
+      instructions: "Canonical zero-egress invariants and structured handoff protocols."
+    - repository: "knowthankyew/portfolio-admin"
+      instructions: "Portfolio governance and Master Brief statutory standards."
