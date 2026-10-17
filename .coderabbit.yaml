@@ -15,8 +15,7 @@ reviews:
 
   path_filters:
     - "!node_modules/**"
-    - "!dist/**"
-    - "!bom.json"
+    - "!dist/**/*.map"
     - "!*.log"
     - "!statutory-update-report.md"
 
@@ -36,7 +35,7 @@ reviews:
         2. STATUTORY GROUNDING & LEGAL DEFICIT PREVENTION:
            - In `src/subscriptions/**`, `src/tenancy/**`, `src/healthcare/**`, `src/wage/**`, and `src/warranties/**`:
              - Every statutory rule must specify: `id`, `name`, `statuteRef`, `jurisdiction`, `effectiveDate`, `lastAudited`, `description`, `officialSourceUrl`.
-             - Subscriptions: Grounded against ROSCA (15 U.S.C. § 8403), FTC Negative Option Rule (16 CFR Part 425), State ARLs (CA EDC § 17602, NY GBL § 527), UK DMCC 2024, EU CRD 2011/83.
+             - Subscriptions: Grounded against ROSCA (15 U.S.C. § 8403), FTC Negative Option Rule (16 CFR Part 425, acknowledging its current scope concerning prenotification negative-option plans following judicial vacatur; broader subscription auto-renewals are governed under ROSCA and state ARLs), State ARLs (CA EDC § 17602, NY GBL § 527), UK DMCC 2024, EU CRD 2011/83.
              - Tenancy: Grounded against State Tenant Protection Acts, Security Deposit limits, and habitability codes (CA Civ. Code §§ 1950.5/1941, NY RPL § 238-a, IL 765 ILCS 710, TX Prop. Code § 92).
              - Healthcare: Grounded against IRC § 501(r) Financial Assistance Policies, HHS/CMS Hospital Price Transparency medians, and official Federal Poverty Level (FPL) thresholds.
              - Wage & Hour: Grounded against FLSA (29 U.S.C. §§ 206/207) and State Wage Theft Prevention Acts.
