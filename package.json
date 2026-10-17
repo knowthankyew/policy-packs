@@ -1,6 +1,6 @@
 {
   "name": "@knowthankyew/policy-packs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Centralized statutory and regulatory policy engine for knowthankyew client reality engines",
   "type": "module",
   "main": "./dist/index.js",
