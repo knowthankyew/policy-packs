@@ -26,7 +26,9 @@ const __dirname = dirname(__filename);
 const REPO_ROOT = resolve(__dirname, '..');
 
 const PROHIBITED_WORDS = [
-  /\bbulletproof\b/i,
+  /\bbullet-?proof\b/i,
+  /\brock\s+solid\b/i,
+  /\brock\s+solid\b/i,
   /\bconclusive\b/i,
   /\bdefinitive\b/i,
   /\binfinitely scalable\b/i,
@@ -43,7 +45,7 @@ export function auditZeroEgress(errors = []) {
   }
 
   const networkPrimitiveRegex =
-    /(?:\b(?:fetch|\??\.\s*fetch)\s*\(|=\s*fetch\b|\b(?:XMLHttpRequest|axios)\b|\[\s*['"`](?:fetch|XMLHttpRequest|sendBeacon|WebSocket|EventSource|axios)['"`]\s*\]|\bnavigator\s*(?:\??\.\s*sendBeacon|\[\s*['"`]sendBeacon['"`]\s*\])|\bnew\s+(?:WebSocket|EventSource)\b|\bimportScripts\s*\()/;
+    /(?:\b(?:fetch|\??\.\s*fetch)\s*\(|=\s*fetch\b|\b(?:XMLHttpRequest|axios)\b|\[\s*['"`](?:fetch|XMLHttpRequest|sendBeacon|WebSocket|EventSource|axios)['"`]\s*\]|\bnavigator\s*(?:\??\.\s*sendBeacon|\[\s*['"`]sendBeacon['"`]\s*\])|\bnew\s+(?:WebSocket|EventSource|Image)\b|\bnew\s+Worker\s*\(\s*(?:new\s+URL\s*\(\s*)?['\"`]https?:\/\/|\bimport\s*\(\s*['"`]https?:\/\/|\bdocument\s*(?:\??\.\s*createElement|\[\s*['"`]createElement['"`]\s*\])\s*\(\s*['"`]script['"`]\s*\)|\b(?:window|globalThis|self)\s*(?:\.\s*fetch|\[\s*['"`]fetch['"`]\s*\]))/;
 
   function scanDirectory(dir) {
     if (!existsSync(dir)) return;
@@ -127,9 +129,17 @@ export function auditStatutoryGrounding(errors = []) {
 export function auditVocabulary(errors = []) {
   const docsToCheck = [
     resolve(REPO_ROOT, 'README.md'),
-    resolve(REPO_ROOT, 'NOTICE.md'),
-    resolve(REPO_ROOT, 'docs/ARCHITECTURE.md'),
+    resolve(REPO_ROOT, 'ROADMAP.md'),
+    resolve(REPO_ROOT, 'ARCHITECTURE.md'),
   ];
+  const docsDir = resolve(REPO_ROOT, 'docs');
+  if (existsSync(docsDir)) {
+    for (const entry of readdirSync(docsDir)) {
+      if (entry.endsWith('.md')) {
+        docsToCheck.push(resolve(docsDir, entry));
+      }
+    }
+  }
 
   for (const docPath of docsToCheck) {
     if (!existsSync(docPath)) continue;
