@@ -30,7 +30,7 @@ flowchart TD
     end
 
     subgraph Automation["GitHub Actions Automated Monitor"]
-        Monitor["🤖 legal-statute-monitor.yml<br/><code>scripts/legal-statute-monitor.ts</code>"]
+        Monitor["🤖 legal-statute-monitor.yml<br/><code>scripts/check-statutory-updates.mjs</code>"]
         DiffEngine["📝 Markdown Diff & Report Generator"]
         DraftPR["🔀 Automated Draft PR<br/><i>Label: 'needs-attorney-review'</i>"]
     end
@@ -140,8 +140,9 @@ policy-packs/
 │   └── legal-statute-monitor.yml  # Daily 06:00 UTC crawler & draft PR generator
 ├── schemas/                       # Canonical JSON Schemas for statutory rules
 ├── scripts/
-│   ├── audit-claims.ts            # Enforces statutory grounding metadata presence
-│   └── legal-statute-monitor.ts   # Multi-jurisdictional crawler script
+│   ├── audit-claims.mjs           # Enforces statutory grounding metadata presence
+│   ├── check-statutory-updates.mjs# Multi-jurisdictional crawler script
+│   └── generate-sbom.mjs          # CycloneDX SBOM generator
 ├── src/
 │   ├── subscriptions/             # Auto-renewal, click-to-cancel & arbitration rules
 │   ├── tenancy/                   # Security deposits, illegal waivers & habitability
