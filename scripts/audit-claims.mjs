@@ -253,12 +253,49 @@ export function auditReDoSSafety(errors = []) {
   }
 }
 
+/**
+ * Audit 5: Shared Claims Linter Core Parity & Anti-Drift Invariant
+ */
+export function auditCoreIntegrity(errors = []) {
+  const canonicalPath = resolve(REPO_ROOT, 'scripts/claims-linter-core.mjs');
+  if (!existsSync(canonicalPath)) {
+    errors.push('Missing canonical scripts/claims-linter-core.mjs in policy-packs.');
+    return;
+  }
+  const canonicalContent = readFileSync(canonicalPath, 'utf-8');
+  const devRoot = resolve(REPO_ROOT, '..');
+  const siblingRepos = [
+    'bill-of-rights-bot',
+    'careCheck',
+    'enterprise-self-host',
+    'knowthankyew-extension',
+    'lease-audit',
+    'mailStripper',
+    'paystub-check',
+    'privacy-telemetry',
+    'warranty-watch',
+  ];
+
+  for (const repo of siblingRepos) {
+    const siblingCore = resolve(devRoot, repo, 'scripts/claims-linter-core.mjs');
+    if (existsSync(siblingCore)) {
+      const siblingContent = readFileSync(siblingCore, 'utf-8');
+      if (siblingContent !== canonicalContent) {
+        errors.push(
+          `Claims linter core drift detected in ${repo}: scripts/claims-linter-core.mjs differs from canonical policy-packs core.`
+        );
+      }
+    }
+  }
+}
+
 export function runAllAudits() {
   const errors = [];
   auditZeroEgress(errors);
   auditStatutoryGrounding(errors);
   auditVocabulary(errors);
   auditReDoSSafety(errors);
+  auditCoreIntegrity(errors);
   return errors;
 }
 
@@ -279,5 +316,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   console.log('  ✓ Transparent statutory grounding and audit dates verified across all domain packs');
   console.log('  ✓ Zero unprovable marketing adjectives found in documentation');
   console.log('  ✓ ReDoS safety verified on all statutory regex patterns');
+  console.log('  ✓ Shared claims-linter-core.mjs anti-drift parity verified across all portfolio repos');
   process.exit(0);
 }
