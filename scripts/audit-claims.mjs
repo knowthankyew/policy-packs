@@ -20,6 +20,25 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import safeRegex from 'safe-regex';
+import {
+  stripLineComment,
+  stripBlockComments,
+  FORBIDDEN_NETWORK_REGEX,
+  testNetworkPrimitive,
+  scanSourceForNetworkPrimitives,
+  scanDocumentationForVocabulary,
+  BANNED_VOCABULARY,
+} from './claims-linter-core.mjs';
+
+export {
+  stripLineComment,
+  stripBlockComments,
+  FORBIDDEN_NETWORK_REGEX,
+  testNetworkPrimitive,
+  scanSourceForNetworkPrimitives,
+  scanDocumentationForVocabulary,
+  BANNED_VOCABULARY,
+};
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -55,16 +74,10 @@ export function auditZeroEgress(errors = []) {
       if (entry.isDirectory()) {
         scanDirectory(fullPath);
       } else if (/\.(ts|js|mjs)$/.test(entry.name)) {
+        const relPath = fullPath.replace(REPO_ROOT + '/', '');
         const code = readFileSync(fullPath, 'utf-8');
-        const lines = code.split('\n');
-        lines.forEach((line, idx) => {
-          const trimmed = line.replace(/\/\/.*$/, '').trim();
-          if (networkPrimitiveRegex.test(trimmed)) {
-            errors.push(
-              `Zero-egress violation in ${fullPath.replace(REPO_ROOT + '/', '')}:${idx + 1}: ${trimmed}`
-            );
-          }
-        });
+        const fileErrors = scanSourceForNetworkPrimitives(code, relPath);
+        errors.push(...fileErrors);
       }
     }
   }
