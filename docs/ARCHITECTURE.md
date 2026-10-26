@@ -1,6 +1,6 @@
 <!-- diagram-meta
   last-validated: 2026-10-26
-  validated-commit: 3a95c25
+  validated-commit: 8838c8c
   covers: [src/**, schemas/**, scripts/**, .github/workflows/**]
   generated-by: manual
 -->
