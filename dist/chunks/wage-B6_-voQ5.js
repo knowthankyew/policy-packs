@@ -1,4 +1,4 @@
-import { t as e } from "./rolldown-runtime-Dy4uBu1J.js";
+import { t as e } from "./rolldown-runtime-CGnMp29N.js";
 var t = {
 	$schema: "../schemas/wage-policy.schema.json",
 	jurisdiction: {
@@ -254,7 +254,6 @@ var y = [
 	g
 ], b = { DEFAULT: v(_) };
 for (let e of y) b[e.jurisdiction.code] = v(e);
-//#endregion
 export { _ as a, d as c, p as d, l as f, m as i, v as l, y as n, g as o, u as r, f as s, b as t, h as u };
 
-//# sourceMappingURL=wage-Cn5WS34R.js.map
+//# sourceMappingURL=wage-B6_-voQ5.js.map

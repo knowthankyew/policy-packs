@@ -136,6 +136,53 @@ export function auditStatutoryGrounding(errors = []) {
   }
 }
 
+const VACATED_CFR_PATTERN = /\b16\s*CFR\s*(?:Part|§)\s*425\b/i;
+
+/**
+ * Audit 2b: Fail-Closed Check Against Citing Vacated Federal Rules as Active Law
+ */
+export function auditNoVacatedCitations(errors = [], overrideRuleStrings = null) {
+  const fieldsToInspect = [];
+
+  if (Array.isArray(overrideRuleStrings)) {
+    for (const entry of overrideRuleStrings) {
+      fieldsToInspect.push(entry);
+    }
+  } else {
+    const subDir = resolve(REPO_ROOT, 'src', 'subscriptions', 'data');
+    if (existsSync(subDir)) {
+      for (const file of readdirSync(subDir).filter((f) => f.endsWith('.json'))) {
+        const content = JSON.parse(readFileSync(resolve(subDir, file), 'utf-8'));
+        fieldsToInspect.push(
+          { label: `${file}:description`, value: content.description },
+          { label: `${file}:codification`, value: content.codification }
+        );
+        for (const rule of content.rules || []) {
+          const rid = rule.id || 'unnamed';
+          fieldsToInspect.push(
+            { label: `${file}:${rid}:statute.code`, value: rule.statute?.code },
+            { label: `${file}:${rid}:statute.title`, value: rule.statute?.title },
+            { label: `${file}:${rid}:statute.plainExplanation`, value: rule.statute?.plainExplanation },
+            { label: `${file}:${rid}:explanation`, value: rule.explanation },
+            { label: `${file}:${rid}:recommendation`, value: rule.recommendation },
+            { label: `${file}:${rid}:tracking.statuteCode`, value: rule.tracking?.statuteCode },
+            { label: `${file}:${rid}:tracking.cfr`, value: rule.tracking?.cfr },
+            { label: `${file}:${rid}:statutoryCitation`, value: rule.statutoryCitation },
+            { label: `${file}:${rid}:statuteSummary`, value: rule.statuteSummary },
+            { label: `${file}:${rid}:disputeTemplate`, value: rule.disputeTemplate }
+          );
+        }
+      }
+    }
+  }
+
+  for (const { label, value } of fieldsToInspect) {
+    if (typeof value === 'string' && VACATED_CFR_PATTERN.test(value)) {
+      errors.push(`Vacated federal rule citation (16 CFR Part 425) forbidden in active field '${label}'`);
+    }
+  }
+}
+
 /**
  * Audit 3: Vocabulary Guardrails
  */
@@ -293,6 +340,7 @@ export function runAllAudits() {
   const errors = [];
   auditZeroEgress(errors);
   auditStatutoryGrounding(errors);
+  auditNoVacatedCitations(errors);
   auditVocabulary(errors);
   auditReDoSSafety(errors);
   auditCoreIntegrity(errors);

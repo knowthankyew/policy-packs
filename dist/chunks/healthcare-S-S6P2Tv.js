@@ -1,4 +1,4 @@
-import { t as e } from "./rolldown-runtime-Dy4uBu1J.js";
+import { t as e } from "./rolldown-runtime-CGnMp29N.js";
 var t = {
 	$schema: "../schemas/charity-care-policy.schema.json",
 	jurisdiction: {
@@ -367,7 +367,6 @@ var t = {
 	NY: d,
 	WA: f
 }, m = a, h = a.guidelines, g = h, _ = o, v = _, y = s, b = y;
-//#endregion
 export { u as a, m as c, y as d, _ as f, v as i, c as l, g as n, l as o, f as p, b as r, h as s, p as t, d as u };
 
-//# sourceMappingURL=healthcare-CDJO-bjN.js.map
+//# sourceMappingURL=healthcare-S-S6P2Tv.js.map

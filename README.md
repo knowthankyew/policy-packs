@@ -19,7 +19,7 @@ The **knowthankyew** portfolio provides client-side consumer reality engines acr
 
 | Subpath Export | Domain Coverage | Tracked Statutory Baselines |
 | :--- | :--- | :--- |
-| `@knowthankyew/policy-packs/subscriptions` | Auto-Renewals, Click-to-Cancel, Arbitration | 15 U.S.C. § 8401 (ROSCA), 16 CFR Part 425 (FTC Negative Option), State ARLs (CA AB 390/SB 313, NY, CO, IL, DE), UK DMCC Act 2024, EU Consumer Rights Directive (2011/83/EU), FAA |
+| `@knowthankyew/policy-packs/subscriptions` | Auto-Renewals, Cancellation Symmetry, Arbitration | 15 U.S.C. §§ 8401-8405 (ROSCA), FTC Act § 5(a) (15 U.S.C. § 45(a)), State ARLs (CA AB 2863/AB 390, NY, CO, IL, DE), UK DMCC Act 2024, EU Consumer Rights Directive (2011/83/EU), FAA |
 | `@knowthankyew/policy-packs/tenancy` | Residential Leases & Tenant Protections | Cal. Civ. Code § 1950.5 (AB 12), N.Y. GOB § 7-108 / HSTPA, Tex. Prop. Code Ch. 92, Fla. Stat. Ch. 83, 765 ILCS 710/715, Fair Housing Act (FHA), Servicemembers Civil Relief Act (SCRA) |
 | `@knowthankyew/policy-packs/healthcare` | Charity Care & Hospital Price Transparency | 26 U.S.C. § 501(r) Financial Assistance Policies, CMS 45 CFR Part 180, HHS Poverty Guidelines (FPL), State Charity Care Acts (CA H&SC § 127400, NY PHL § 2807-k, WA RCW 70.02) |
 | `@knowthankyew/policy-packs/wage` | Overtime, Minimum Wage, Wage Theft | 29 U.S.C. § 201 (FLSA Overtime), State Wage Theft Prevention Acts (CA Labor Code § 203/226, NYLL § 195, MA, WA, CO, TX, FL) |

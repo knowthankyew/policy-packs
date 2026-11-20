@@ -1,10 +1,10 @@
-import { t as e } from "./rolldown-runtime-Dy4uBu1J.js";
+import { t as e } from "./rolldown-runtime-CGnMp29N.js";
 var t = {
 	packId: "us-federal",
 	name: "US Federal Statutory Policy Pack",
 	version: "1.0.0",
 	jurisdiction: "US Federal",
-	description: "Statutory rules grounded in federal law: ROSCA, FTC Negative Option Rule, Federal Arbitration Act, and FTC Act Section 5.",
+	description: "Statutory rules grounded in active federal law: ROSCA (15 U.S.C. § 8403), FTC Act Section 5 (15 U.S.C. § 45(a)), and the Federal Arbitration Act (9 U.S.C. § 2).",
 	rules: [
 		{
 			id: "AR-001",
@@ -13,10 +13,10 @@ var t = {
 			classification: "STATUTORY_VIOLATION",
 			severity: "CRITICAL",
 			statute: {
-				code: "15 U.S.C. § 8403 (ROSCA) / 16 CFR Part 425",
-				title: "Restore Online Shoppers Confidence Act & FTC Negative Option Rule",
+				code: "15 U.S.C. § 8403 (ROSCA)",
+				title: "Restore Online Shoppers' Confidence Act (ROSCA)",
 				jurisdiction: "US Federal",
-				plainExplanation: "Federal ROSCA and FTC Negative Option regulations require clear, conspicuous disclosure of recurring terms and explicit affirmative consumer consent prior to initial billing."
+				plainExplanation: "Federal law (ROSCA, 15 U.S.C. § 8403) requires clear and conspicuous disclosure of all material automatic-renewal terms, express informed consent before charging, and simple cancellation mechanisms."
 			},
 			patterns: [
 				"automatically\\s+(?:renews?|renewing|extend(?:s|ed)?)[^.\\n]{0,80}(?:until|unless|each|every|successive)",
@@ -31,14 +31,13 @@ var t = {
 			tracking: {
 				agency: "Federal Trade Commission",
 				statuteCode: "15 U.S.C. § 8403",
-				cfr: "16 CFR Part 425",
 				apiKeywords: [
 					"Negative Option",
 					"ROSCA",
 					"Automatic Renewal",
 					"Click to Cancel"
 				],
-				lastVerifiedDate: "2026-09-01"
+				lastVerifiedDate: "2026-11-20"
 			}
 		},
 		{
@@ -954,7 +953,6 @@ var y = g.flatMap(v), b = a, x = o, S = s, C = c, w = l, T = u, E = {
 	CO: w,
 	DE: T
 };
-//#endregion
 export { w as a, T as c, C as d, S as f, f as g, m as h, x as i, h as l, d as m, y as n, _ as o, p, E as r, v as s, g as t, b as u };
 
-//# sourceMappingURL=subscriptions-CD8Xn3Yr.js.map
+//# sourceMappingURL=subscriptions-DYsUxeB-.js.map
